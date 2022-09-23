@@ -8,7 +8,7 @@
 
     <parent>
         <groupId>com.c0d3m4513r</groupId>
-        <artifactId>votereboot-parent</artifactId>
+        <artifactId>plugin-parent</artifactId>
         <version>parent</version>
     </parent>
 
