@@ -25,6 +25,7 @@ import ninja.leaping.configurate.yaml.YAMLConfigurationLoader;
 import org.slf4j.Logger;
 import java.io.*;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -121,10 +122,22 @@ public class Plugin implements IConfigLoaderSaver {
         logger.info("[sponge-v7] LoadComplete end");
     }
 
+    private ConfigurationNode getNode(String path){
+        return root.getNode((Object[]) path.split("\\."));
+    }
     @Override
     public <T> @Nullable T loadConfigKey(String path, Class<T> type){
         try{
-            return root.getNode((Object[]) path.split("\\.")).getValue(TypeToken.of(type));
+            return getNode(path).getValue(TypeToken.of(type));
+        }catch (ObjectMappingException e){
+            logger.error("Failed to serialise Path:'" + path + "' because of", e);
+            return null;
+        }
+    }
+    @Override
+    public <T> @Nullable List<T> loadConfigKeyList(String path, Class<T> type){
+        try{
+            return getNode(path).getList(TypeToken.of(type));
         }catch (ObjectMappingException e){
             logger.error("Failed to serialise Path:'" + path + "' because of", e);
             return null;
@@ -134,11 +147,17 @@ public class Plugin implements IConfigLoaderSaver {
     @Override
     public <T> boolean saveConfigKey(@Nullable T value, @NonNull Class<T> typeToken, @NonNull String path) {
         try {
-            root.getNode((Object[]) path.split("\\.")).setValue(TypeToken.of(typeToken),value);
+            getNode(path).setValue(TypeToken.of(typeToken),value);
         } catch (ObjectMappingException e) {
             logger.error("Could not save config at Path:'"+path+"', because of",e);
             return false;
         }
+        return true;
+    }
+
+    @Override
+    public <V, T> boolean saveConfigKeyList(@Nullable V value, @NonNull Class<T> typeToken, @NonNull String path) {
+        getNode(path).setValue(value);
         return true;
     }
 
