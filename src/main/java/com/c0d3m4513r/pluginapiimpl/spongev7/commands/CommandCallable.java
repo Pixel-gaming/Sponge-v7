@@ -46,9 +46,7 @@ public class CommandCallable implements org.spongepowered.api.command.CommandCal
 
     @Override
     public boolean testPermission(CommandSource source) {
-        return command.testPermission(
-                new com.c0d3m4513r.pluginapiimpl.spongev7.commands.CommandSource(source)
-        );
+        return true;
     }
 
     @Override
