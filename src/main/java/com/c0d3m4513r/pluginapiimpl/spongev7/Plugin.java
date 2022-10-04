@@ -23,6 +23,9 @@ import org.spongepowered.api.plugin.PluginContainer;
 import ninja.leaping.configurate.yaml.YAMLConfigurationLoader;
 
 import org.slf4j.Logger;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.title.Title;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
@@ -94,7 +97,6 @@ public class Plugin implements IConfigLoaderSaver {
                 fw.close();
             }
         }
-
         configurationLoader = YAMLConfigurationLoader.builder().setIndent(2).setPath(configFile).build();
         root=configurationLoader.load();
         logger.info("[sponge-v7] Construct end");
