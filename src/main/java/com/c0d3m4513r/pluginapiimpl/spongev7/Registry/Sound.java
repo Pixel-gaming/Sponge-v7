@@ -14,6 +14,11 @@ import java.util.Optional;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class Sound extends com.c0d3m4513r.pluginapi.registry.Sound {
+    //This exists, so I can access something in this class, to run the static block
+    public static final Object none = null;
+    static {
+        new Sound();
+    }
     @NonNull
     SoundType spongeSound;
 

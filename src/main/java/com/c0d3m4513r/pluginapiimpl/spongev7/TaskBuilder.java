@@ -7,7 +7,7 @@ import org.spongepowered.api.Sponge;
 
 import java.util.concurrent.TimeUnit;
 
-public class TaskBuilder implements com.c0d3m4513r.pluginapi.TaskBuilder {
+public class TaskBuilder extends com.c0d3m4513r.pluginapi.TaskBuilder {
     private boolean async = false;
     private boolean timer = false;
     private long timerTimeAmount = 0;
@@ -20,9 +20,12 @@ public class TaskBuilder implements com.c0d3m4513r.pluginapi.TaskBuilder {
     private String name = null;
     private static Object plugin;
 
+    //This only gets exposed, once plugin was set.
+    private TaskBuilder(){}
 
     TaskBuilder(Object plugint){
         TaskBuilder.plugin=plugint;
+        construct=TaskBuilder::new;
     }
 
     @Override
