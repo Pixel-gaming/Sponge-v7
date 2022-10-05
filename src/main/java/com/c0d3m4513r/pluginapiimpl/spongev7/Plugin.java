@@ -23,14 +23,10 @@ import org.spongepowered.api.plugin.PluginContainer;
 import ninja.leaping.configurate.yaml.YAMLConfigurationLoader;
 
 import org.slf4j.Logger;
-import org.spongepowered.api.text.Text;
-import org.spongepowered.api.text.title.Title;
-
 import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 
 @org.spongepowered.api.plugin.Plugin(

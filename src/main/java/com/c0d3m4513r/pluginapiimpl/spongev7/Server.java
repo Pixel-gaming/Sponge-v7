@@ -44,4 +44,10 @@ public class Server extends com.c0d3m4513r.pluginapi.Server {
     public Collection<World> getWorlds() {
         return Sponge.getServer().getWorlds().parallelStream().map(com.c0d3m4513r.pluginapiimpl.spongev7.World::new).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean isMainThread() {
+        return Sponge.getServer().isMainThread();
+    }
+
 }
