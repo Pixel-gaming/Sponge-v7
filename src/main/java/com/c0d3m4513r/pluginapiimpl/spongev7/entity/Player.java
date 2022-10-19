@@ -4,6 +4,7 @@ import com.c0d3m4513r.pluginapi.Data.Point3D;
 import com.c0d3m4513r.pluginapi.Scoreboard.Scoreboard;
 import com.c0d3m4513r.pluginapi.messages.Title;
 import com.c0d3m4513r.pluginapi.registry.Sound;
+import com.c0d3m4513r.pluginapi.world.Location;
 import com.c0d3m4513r.pluginapiimpl.spongev7.Scoreboard.ScoreboardImpl;
 import com.flowpowered.math.vector.Vector3d;
 import lombok.NonNull;
@@ -31,9 +32,8 @@ public class Player implements com.c0d3m4513r.pluginapi.entity.Player,Viewer {
     }
 
     @Override
-    public Point3D getPosition() {
-        Vector3d position = player.getLocation().getPosition();
-        return new Point3D(position.getX(),position.getY(),position.getZ());
+    public Location getLocation() {
+        return new com.c0d3m4513r.pluginapiimpl.spongev7.World.Location(player);
     }
 
     @Override

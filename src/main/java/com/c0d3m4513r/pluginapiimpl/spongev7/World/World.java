@@ -1,4 +1,4 @@
-package com.c0d3m4513r.pluginapiimpl.spongev7;
+package com.c0d3m4513r.pluginapiimpl.spongev7.World;
 
 import com.c0d3m4513r.pluginapi.Data.Point3D;
 import com.c0d3m4513r.pluginapi.entity.Player;

@@ -22,18 +22,6 @@ public class Sound extends com.c0d3m4513r.pluginapi.registry.Sound {
     @NonNull
     SoundType spongeSound;
 
-    @Override
-    public void playSound(World world, Point3D point, int volume) {
-        ((com.c0d3m4513r.pluginapiimpl.spongev7.World)world)
-                .getWorld()
-                .playSound(spongeSound,
-                        new Vector3d(
-                                point.getX().doubleValue(),
-                                point.getY().doubleValue(),
-                                point.getZ().doubleValue()),
-                        volume
-                );
-    }
     public Sound(){
         this(SoundTypes.BLOCK_NOTE_PLING);
     }

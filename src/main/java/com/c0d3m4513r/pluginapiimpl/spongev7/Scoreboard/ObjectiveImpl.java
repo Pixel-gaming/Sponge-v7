@@ -1,6 +1,7 @@
 package com.c0d3m4513r.pluginapiimpl.spongev7.Scoreboard;
 
 import com.c0d3m4513r.pluginapi.Scoreboard.Score;
+import com.c0d3m4513r.pluginapi.Scoreboard.Scoreboard;
 import lombok.Data;
 import lombok.NonNull;
 import org.spongepowered.api.scoreboard.critieria.Criteria;
@@ -22,25 +23,14 @@ public class ObjectiveImpl extends com.c0d3m4513r.pluginapi.Scoreboard.Objective
         super();
         objective=build;
     }
-
-    @Override
-    public void addScore(Score score) {
-        objective.addScore(((ScoreImpl)score).getSpongeScore());
-    }
-
-    @Override
-    public boolean hasScore(@NonNull String score) {
-        return objective.hasScore(Text.of(score));
-    }
-
-    @Override
-    public void removeScore(Score score) {
-        objective.removeScore(((ScoreImpl)score).getSpongeScore());
-    }
-
     @Override
     public void setDisplayName(@NonNull String name) {
         objective.setDisplayName(Text.of(name));
+    }
+
+    @Override
+    public String getName(){
+        return objective.getName();
     }
 
     @Override
@@ -49,8 +39,8 @@ public class ObjectiveImpl extends com.c0d3m4513r.pluginapi.Scoreboard.Objective
     }
 
     @Override
-    public com.c0d3m4513r.pluginapi.Scoreboard.Objective createNewInstance(String name, String displayName,com.c0d3m4513r.pluginapi.Scoreboard.Criteria criteria) {
-        return new ObjectiveImpl(name,displayName, criteria);
+    public com.c0d3m4513r.pluginapi.Scoreboard.Objective createNewInstance(Scoreboard scoreboard, String name, String displayName, com.c0d3m4513r.pluginapi.Scoreboard.Criteria criteria) {
+        return new ObjectiveImpl(scoreboard,name,displayName, criteria);
     }
     private static Criterion getCriterion(com.c0d3m4513r.pluginapi.Scoreboard.Criteria criteria){
         switch (criteria){
@@ -63,7 +53,8 @@ public class ObjectiveImpl extends com.c0d3m4513r.pluginapi.Scoreboard.Objective
             default: throw new RuntimeException("Criteria had more variants, than expected");
         }
     }
-    ObjectiveImpl(String name,String displayName,com.c0d3m4513r.pluginapi.Scoreboard.Criteria criteria){
+    ObjectiveImpl(Scoreboard scoreboard,String name,String displayName,com.c0d3m4513r.pluginapi.Scoreboard.Criteria criteria){
         this(Objective.builder().name(name).displayName(Text.of(displayName)).criterion(getCriterion(criteria)).build());
+        scoreboard.addObjective(this);
     }
 }

@@ -7,7 +7,6 @@ import org.spongepowered.api.Sponge;
 import org.spongepowered.api.text.Text;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,7 +41,7 @@ public class Server extends com.c0d3m4513r.pluginapi.Server {
 
     @Override
     public Collection<World> getWorlds() {
-        return Sponge.getServer().getWorlds().parallelStream().map(com.c0d3m4513r.pluginapiimpl.spongev7.World::new).collect(Collectors.toList());
+        return Sponge.getServer().getWorlds().parallelStream().map(com.c0d3m4513r.pluginapiimpl.spongev7.World.World::new).collect(Collectors.toList());
     }
 
     @Override
