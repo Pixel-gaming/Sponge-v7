@@ -4,6 +4,7 @@ import com.c0d3m4513r.pluginapi.Nullable;
 import com.c0d3m4513r.pluginapi.Scoreboard.DisplaySlot;
 import com.c0d3m4513r.pluginapi.Scoreboard.Objective;
 import com.c0d3m4513r.pluginapi.Scoreboard.Scoreboard;
+import lombok.NonNull;
 import lombok.Value;
 import lombok.val;
 import org.spongepowered.api.scoreboard.displayslot.DisplaySlots;
@@ -29,7 +30,7 @@ public class ScoreboardImpl extends Scoreboard {
     }
 
     @Override
-    public void updateDisplaySlot(@Nullable Objective objective, DisplaySlot displaySlot) throws IllegalStateException {
+    public void updateDisplaySlot(@Nullable Objective objective, @NonNull DisplaySlot displaySlot) throws IllegalStateException {
         final org.spongepowered.api.scoreboard.displayslot.DisplaySlot spongeDisplaySlot;
         switch (displaySlot){
             case List:
@@ -44,7 +45,7 @@ public class ScoreboardImpl extends Scoreboard {
             default:
                 throw new RuntimeException("Unknown DisplaySlot value");
         }
-        val spongeObjective = objective!=null?((ObjectiveImpl)objective).getObjective():null;
+        org.spongepowered.api.scoreboard.objective.Objective spongeObjective = objective!=null?((ObjectiveImpl)objective).getObjective():null;
         spongeScoreboard.updateDisplaySlot(spongeObjective,spongeDisplaySlot);
     }
 
