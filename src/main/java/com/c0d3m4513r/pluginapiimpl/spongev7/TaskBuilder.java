@@ -62,6 +62,13 @@ public class TaskBuilder extends com.c0d3m4513r.pluginapi.TaskBuilder {
         return this;
     }
 
+    @Override
+    public @NonNull TaskBuilder timer(long ticks) {
+        timer=true;
+        timerTimeAmount=ticks;
+        timerTimeValue=null;
+        return this;
+    }
 
     @Override
     public @NonNull TaskBuilder executer(@NonNull Runnable run) {
@@ -94,7 +101,10 @@ public class TaskBuilder extends com.c0d3m4513r.pluginapi.TaskBuilder {
         org.spongepowered.api.scheduler.Task.Builder builder1 = Sponge.getScheduler().createTaskBuilder();
         if (this.async) builder1=builder1.async();
         if (this.deferred) builder1=builder1.delay(deferredTimeAmount,deferredTimeValue);
-        if (this.timer) builder1=builder1.interval(timerTimeAmount,timerTimeValue);
+        if (this.timer){
+            if(timerTimeValue != null) builder1=builder1.interval(timerTimeAmount,timerTimeValue);
+            else builder1 = builder1.intervalTicks(timerTimeAmount);
+        }
         if (this.run==null) throw new IllegalArgumentException("Expected to have a non-null Runnable");
         if (this.name!=null) builder1=builder1.name(this.name);
         Task task = new com.c0d3m4513r.pluginapiimpl.spongev7.Task(builder1.execute(this.run).submit(plugin));
