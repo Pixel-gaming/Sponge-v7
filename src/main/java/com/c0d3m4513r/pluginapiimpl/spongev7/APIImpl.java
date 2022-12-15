@@ -12,10 +12,11 @@ import lombok.val;
 public class APIImpl extends API {
     @SneakyThrows
     APIImpl(Plugin plugin) {
-        super();
         API.logger = plugin.logger;
         API.server = new Server();
         configLoader = plugin;
+
+        API.loadMain();
 
         commandRegistrar = new CommandRegistrar(plugin);
         commandResult = new CommandResult();
