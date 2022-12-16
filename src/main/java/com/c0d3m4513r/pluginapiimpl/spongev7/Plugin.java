@@ -19,6 +19,7 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GameLoadCompleteEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.PluginContainer;
 import ninja.leaping.configurate.yaml.YAMLConfigurationLoader;
 
@@ -47,7 +48,7 @@ public class Plugin implements IConfigLoaderSaver {
     private Path configFile;
 
     @NonNull
-    private YAMLConfigurationLoader configurationLoader;
+    private final YAMLConfigurationLoader configurationLoader;
     private ConfigurationNode root;
     @Getter(AccessLevel.PUBLIC)
     @NonNull
@@ -119,6 +120,12 @@ public class Plugin implements IConfigLoaderSaver {
         EventRegistrar.submitEvent(EventType.load_complete);
         logger.info("[sponge-v7] LoadComplete end");
     }
+    @Listener
+    public void serverStarted(GameStartedServerEvent e){
+        logger.info("[sponge-v7] GameServerStarted start");
+        EventRegistrar.submitEvent(EventType.serverStarting);
+        logger.info("[sponge-v7] GameServerStarted end");
+    }
 
     private ConfigurationNode getNode(String path){
         return root.getNode((Object[]) path.split("\\."));
@@ -126,6 +133,7 @@ public class Plugin implements IConfigLoaderSaver {
     @Override
     public <T> @Nullable T loadConfigKey(String path, Class<T> type){
         try{
+            //noinspection UnstableApiUsage
             return getNode(path).getValue(TypeToken.of(type));
         }catch (ObjectMappingException e){
             logger.error("Failed to serialise Path:'" + path + "' because of", e);
@@ -135,6 +143,7 @@ public class Plugin implements IConfigLoaderSaver {
     @Override
     public <T> @Nullable List<T> loadConfigKeyList(String path, Class<T> type){
         try{
+            //noinspection UnstableApiUsage
             return getNode(path).getList(TypeToken.of(type));
         }catch (ObjectMappingException e){
             logger.error("Failed to serialise Path:'" + path + "' because of", e);
@@ -145,6 +154,7 @@ public class Plugin implements IConfigLoaderSaver {
     @Override
     public <T> boolean saveConfigKey(@Nullable T value, @NonNull Class<T> typeToken, @NonNull String path) {
         try {
+            //noinspection UnstableApiUsage
             getNode(path).setValue(TypeToken.of(typeToken),value);
         } catch (ObjectMappingException e) {
             logger.error("Could not save config at Path:'"+path+"', because of",e);
