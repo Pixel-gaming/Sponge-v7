@@ -13,9 +13,12 @@
     </parent>
 
     <dependencies>
+        <!--suppress VulnerableLibrariesLocal -->
+        <!--not my concern. I just support all sponge v7 versions. Which version is vulnerable to what is whatever-->
         <dependency>
             <groupId>org.spongepowered</groupId>
             <artifactId>spongeapi</artifactId>
+            <!--suppress MavenPackageUpdate -->
             <version>7.0.0</version>
             <scope>provided</scope>
         </dependency>
