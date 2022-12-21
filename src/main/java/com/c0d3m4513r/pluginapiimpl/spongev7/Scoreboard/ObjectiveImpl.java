@@ -3,6 +3,7 @@ package com.c0d3m4513r.pluginapiimpl.spongev7.Scoreboard;
 import com.c0d3m4513r.pluginapi.Scoreboard.Score;
 import com.c0d3m4513r.pluginapi.Scoreboard.Scoreboard;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.spongepowered.api.scoreboard.critieria.Criteria;
 import org.spongepowered.api.scoreboard.critieria.Criterion;

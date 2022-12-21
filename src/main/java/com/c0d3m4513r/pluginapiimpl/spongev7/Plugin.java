@@ -52,11 +52,11 @@ public class Plugin implements IConfigLoaderSaver {
     private ConfigurationNode root;
     @Getter(AccessLevel.PUBLIC)
     @NonNull
-    final Logger logger;
+    final org.slf4j.Logger logger;
     private final APIImpl api;
 
     @Inject
-    public Plugin(@NonNull PluginContainer container,@NonNull final Logger logger) throws IOException {
+    public Plugin(@NonNull PluginContainer container,@NonNull final org.slf4j.Logger logger) throws IOException {
         logger.info("[sponge-v7] Construct start");
         //Init config stuff
         if (configDir==null){
