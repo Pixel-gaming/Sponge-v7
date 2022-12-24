@@ -21,12 +21,12 @@ public class CommandCallable implements org.spongepowered.api.command.CommandCal
     Command command;
 
     @Override
-    public org.spongepowered.api.command.CommandResult process(CommandSource source, String arguments) throws CommandException {
+    public org.spongepowered.api.command.@NonNull CommandResult process(@NonNull CommandSource source, String arguments) throws CommandException {
         try {
             return ((CommandResult)
                     command.process(
                             new com.c0d3m4513r.pluginapiimpl.spongev7.commands.CommandSource(source),
-                            arguments)
+                            arguments.split(" "))
             ).getComandResult();
         } catch (com.c0d3m4513r.pluginapi.command.CommandException ce) {
             throw new CommandException(Text.of(ce.getMessage()), ce.getE());
@@ -34,23 +34,23 @@ public class CommandCallable implements org.spongepowered.api.command.CommandCal
     }
 
     @Override
-    public List<String> getSuggestions(CommandSource source, String arguments, @Nullable Location<World> targetPosition) throws CommandException {
+    public @NonNull List<String> getSuggestions(@NonNull CommandSource source, String arguments, @Nullable Location<World> targetPosition) throws CommandException {
         try {
             return command.getSuggestions(
                     new com.c0d3m4513r.pluginapiimpl.spongev7.commands.CommandSource(source),
-                    arguments);
+                    arguments.split(" "));
         } catch (com.c0d3m4513r.pluginapi.command.CommandException ce) {
             throw new CommandException(Text.of(ce.getMessage()), ce.getE());
         }
     }
 
     @Override
-    public boolean testPermission(CommandSource source) {
+    public boolean testPermission(@NonNull CommandSource source) {
         return true;
     }
 
     @Override
-    public Optional<Text> getShortDescription(CommandSource source) {
+    public @NonNull Optional<Text> getShortDescription(@NonNull CommandSource source) {
         Optional<String> ostr = command.getShortDescription(
                 new com.c0d3m4513r.pluginapiimpl.spongev7.commands.CommandSource(source)
         );
@@ -58,7 +58,7 @@ public class CommandCallable implements org.spongepowered.api.command.CommandCal
     }
 
     @Override
-    public Optional<Text> getHelp(CommandSource source) {
+    public @NonNull Optional<Text> getHelp(@NonNull CommandSource source) {
         Optional<String> ostr = command.getHelp(
                 new com.c0d3m4513r.pluginapiimpl.spongev7.commands.CommandSource(source)
         );
@@ -66,7 +66,7 @@ public class CommandCallable implements org.spongepowered.api.command.CommandCal
     }
 
     @Override
-    public Text getUsage(CommandSource source) {
+    public @NonNull Text getUsage(@NonNull CommandSource source) {
         return Text.of(command.getUsage(
                 new com.c0d3m4513r.pluginapiimpl.spongev7.commands.CommandSource(source)
         ));
